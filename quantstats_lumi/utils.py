@@ -213,6 +213,7 @@ def _prepare_returns(data, rf=0.0, nperiods=None):
         data = data.pct_change()
 
     # cleanup data
+    data = data.astype("float")
     data = data.replace([_np.inf, -_np.inf], float("NaN"))
 
     if isinstance(data, (_pd.DataFrame, _pd.Series)):
