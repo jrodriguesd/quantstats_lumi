@@ -231,10 +231,11 @@ def _prepare_returns(data, rf=0.0, nperiods=None):
     return data
 
 
-def download_returns(ticker, period="max", proxy=None):
+def download_returns(ticker, period="max", proxy=None, progress=False):
     params = {
         "tickers": ticker,
         "proxy": proxy,
+        "progress": progress,
     }
     if isinstance(period, _pd.DatetimeIndex):
         params["start"] = period[0]
