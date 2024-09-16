@@ -208,9 +208,9 @@ def _prepare_returns(data, rf=0.0, nperiods=None):
     if isinstance(data, _pd.DataFrame):
         for col in data.columns:
             if data[col].dropna().min() >= 0 and data[col].dropna().max() > 1:
-                data[col] = data[col].pct_change()
+                data[col] = data[col].pct_change(fill_method=None)
     elif data.min() >= 0 and data.max() > 1:
-        data = data.pct_change()
+        data = data.pct_change(fill_method=None)
 
     # cleanup data
     data = data.astype("float")
@@ -240,7 +240,7 @@ def download_returns(ticker, period="max", proxy=None):
         params["start"] = period[0]
     else:
         params["period"] = period
-    return _yf.download(**params)["Close"].pct_change()
+    return _yf.download(**params)["Close"].pct_change(fill_method=None)
 
 
 def _prepare_benchmark(benchmark=None, period="max", rf=0.0, prepare_returns=True):
@@ -267,7 +267,7 @@ def _prepare_benchmark(benchmark=None, period="max", rf=0.0, prepare_returns=Tru
         benchmark = (
             benchmark_prices.reindex(new_index, method="bfill")
             .reindex(period)
-            .pct_change()
+            .pct_change(fill_method=None)
             .fillna(0)
         )
         benchmark = benchmark[benchmark.index.isin(period)]
