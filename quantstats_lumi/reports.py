@@ -153,7 +153,7 @@ def html(
                 benchmark_title = benchmark[benchmark.columns[0]].name
 
         tpl = tpl.replace(
-            "{{benchmark_title}}", f"Benchmark is {benchmark_title.upper()} | "
+            "{{benchmark_title}}", f"Benchmark is {benchmark_title.upper()}"
         )
         benchmark = _utils._prepare_benchmark(benchmark, returns.index, rf)
         if match_dates is True:
