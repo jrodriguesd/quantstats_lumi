@@ -1716,6 +1716,7 @@ def _html_table(obj, showindex="default"):
     obj = _regex.sub(" +</td>", "</td>", obj)
     obj = _regex.sub("<th> +", "<th>", obj)
     obj = _regex.sub(" +</th>", "</th>", obj)
+    obj = _regex.sub("<td>-", '<td style="color:red">-', obj)
     return obj
 
 
