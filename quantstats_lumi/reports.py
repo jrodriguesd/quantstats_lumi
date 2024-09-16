@@ -43,7 +43,7 @@ except ImportError:
     from IPython.core.display import display as iDisplay
 
 
-def _get_trading_periods(periods_per_year=365):
+def _get_trading_periods(periods_per_year=252):
     """returns trading periods per year and half year"""
     half_year = _ceil(periods_per_year / 2)
     return periods_per_year, half_year
@@ -69,7 +69,7 @@ def html(
     title: str = "Strategy Tearsheet",
     output: str = None,
     compounded: bool = True,
-    periods_per_year: int = 365,
+    periods_per_year: int = 252,
     download_filename: str = "tearsheet.html",
     figfmt: str = "svg",
     template_path: str = None,
@@ -99,7 +99,7 @@ def html(
     compounded : bool, optional
         Whether to use compounded returns, default is True
     periods_per_year : int, optional
-        Trading periods per year, default is 365
+        Trading periods per year, default is 252
     download_filename : str, optional
         Download filename, default is "tearsheet.html"
     figfmt : str, optional
@@ -593,7 +593,7 @@ def full(
     figsize=(8, 5),
     display=True,
     compounded=True,
-    periods_per_year=365,
+    periods_per_year=252,
     match_dates=True,
     **kwargs,
 ):
@@ -746,7 +746,7 @@ def basic(
     figsize=(8, 5),
     display=True,
     compounded=True,
-    periods_per_year=365,
+    periods_per_year=252,
     match_dates=True,
     **kwargs,
 ):
@@ -855,7 +855,7 @@ def metrics(
     mode="basic",
     sep=False,
     compounded=True,
-    periods_per_year=365,
+    periods_per_year=252,
     prepare_returns=True,
     match_dates=True,
     **kwargs,
@@ -1353,7 +1353,7 @@ def plots(
     figsize=(8, 5),
     mode="basic",
     compounded=True,
-    periods_per_year=365,
+    periods_per_year=252,
     prepare_returns=True,
     match_dates=True,
     **kwargs,
