@@ -20,3 +20,4 @@ test_tearsheet_parameters.html
 cache
 output
 strategy_rh.py
+strategy_rh_config.py
