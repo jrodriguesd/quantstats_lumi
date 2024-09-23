@@ -207,19 +207,22 @@ def html(
 
 
     # Max Drawdown #
-    # Get the value of the "Strategy" column where the "Mteric" column is "Max Drawdown"
+    # Get the value of the "Strategy" column where the "Metric" column is "Max Drawdown"
     max_drawdown = mtrx.loc["Max Drawdown", strategy_title]
     # Add the max drawdown to the template
+    if max_drawdown[0] == "-":
+        max_drawdown = '<font color="red">' + max_drawdown + '</font>'
+
     tpl = tpl.replace("{{max_drawdown}}", max_drawdown)
 
     # RoMaD #
-    # Get the value of the "Strategy" column where the "Mteric" column is "RoMaD"
+    # Get the value of the "Strategy" column where the "Metric" column is "RoMaD"
     romad = mtrx.loc["RoMaD", strategy_title]
     # Add the RoMaD to the template
     tpl = tpl.replace("{{romad}}", romad)
 
     # Longest Drawdown Duration #
-    # Get the value of the "Strategy" column where the "Mteric" column is "Longest Drawdown Duration"
+    # Get the value of the "Strategy" column where the "Metric" column is "Longest Drawdown Duration"
     longest_dd_days = mtrx.loc["Longest DD Days", strategy_title]
     # Add the longest drawdown duration to the template
     tpl = tpl.replace("{{longest_dd_days}}", longest_dd_days)
