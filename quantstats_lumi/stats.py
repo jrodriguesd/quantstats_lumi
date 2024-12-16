@@ -1071,7 +1071,7 @@ def compare(
             }
         )
 
-        data["Multiplier"] = data["Returns"] / data["Benchmark"]
+        data["Multiplier"] = _np.where(_np.sign(data["Returns"]) == _np.sign(data["Benchmark"]), data["Returns"] / data["Benchmark"], None)
         data["Won"] = _np.where(data["Returns"] >= data["Benchmark"], "+", "-")
     elif isinstance(returns, _pd.DataFrame):
         bench = {
