@@ -25,6 +25,7 @@ import yfinance as _yf
 from . import stats as _stats
 import inspect
 
+from . import __version__
 
 def _mtd(df):
     return df[df.index >= _dt.datetime.now().strftime("%Y-%m-01")]
@@ -230,13 +231,16 @@ def _prepare_returns(data, rf=0.0, nperiods=None):
             return to_excess_returns(data, rf, nperiods)
     return data
 
-
 def download_returns(ticker, period="max", proxy=None, progress=False):
     params = {
         "tickers": ticker,
         "proxy": proxy,
         "progress": progress,
     }
+
+    if _yf.__version__ > "0.2.46":
+        params["multi_level_index"] = False
+
     if isinstance(period, _pd.DatetimeIndex):
         params["start"] = period[0]
     else:
