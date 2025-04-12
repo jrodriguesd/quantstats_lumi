@@ -240,6 +240,8 @@ def download_returns(ticker, period="max", proxy=None, progress=False):
 
     if _yf.__version__ > "0.2.46":
         params["multi_level_index"] = False
+        params["auto_adjust"] = True
+
 
     if isinstance(period, _pd.DatetimeIndex):
         params["start"] = period[0]
