@@ -234,7 +234,6 @@ def _prepare_returns(data, rf=0.0, nperiods=None):
 def download_returns(ticker, period="max", proxy=None, progress=False):
     params = {
         "tickers": ticker,
-        "proxy": proxy,
         "progress": progress,
     }
 
@@ -242,6 +241,11 @@ def download_returns(ticker, period="max", proxy=None, progress=False):
         params["multi_level_index"] = False
         params["auto_adjust"] = True
 
+    if proxy is not None:
+        if _yf.__version__ > "0.2.57":
+            _yf.set_config(proxy=proxy)
+        else:
+            params["proxy"] = proxy
 
     if isinstance(period, _pd.DatetimeIndex):
         params["start"] = period[0]
