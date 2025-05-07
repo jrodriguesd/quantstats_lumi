@@ -51,10 +51,22 @@ def _get_trading_periods(periods_per_year=252):
 
 def _match_dates(returns, benchmark):
     """match dates of returns and benchmark"""
+
     if isinstance(returns, _pd.DataFrame):
-        loc = max(returns[returns.columns[0]].ne(0).idxmax(), benchmark.ne(0).idxmax())
+        if len(returns.columns) > 1:
+            raise ValueError(f'Too many columns for returns {returns.columns}')
+        returns_loc = returns.iloc[:,0]
     else:
-        loc = max(returns.ne(0).idxmax(), benchmark.ne(0).idxmax())
+        returns_loc = returns
+
+    if isinstance(benchmark, _pd.DataFrame):
+        if len(benchmark.columns) > 1:
+            raise ValueError(f'Too many columns for benchmark {benchmark.columns}')
+        benchmark_loc = benchmark.iloc[:,0]
+    else:
+        benchmark_loc = benchmark
+
+    loc = max(returns_loc.ne(0).idxmax(), benchmark_loc.ne(0).idxmax())
     returns = returns.loc[loc:]
     benchmark = benchmark.loc[loc:]
 

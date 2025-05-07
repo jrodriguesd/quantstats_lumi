@@ -355,11 +355,25 @@ def plot_timeseries(
     _plt.yscale("symlog" if log_scale else "linear")
 
     # Set y-axis limits to avoid blank space at the bottom and top
-    min_val = returns.min()
-    max_val = returns.max()
+    if isinstance(returns, _pd.DataFrame):
+        if len(returns.columns) > 1:
+                raise ValueError(f'returns includes multiple columns: {returns.columns}')
+        min_val = returns.iloc[:,0].min()
+        max_val = returns.iloc[:,0].max()
+    else:
+        min_val = returns.min()
+        max_val = returns.max()
+
     if benchmark is not None:
-        min_val = min(min_val, benchmark.min())
-        max_val = max(max_val, benchmark.max())
+        if isinstance(benchmark, _pd.DataFrame):
+            if len(benchmark.columns) > 1:
+                raise ValueError(f'benchmark includes multiple columns: {benchmark.columns}')
+            min_val = min(min_val, benchmark.iloc[:,0].min())
+            max_val = max(max_val, benchmark.iloc[:,0].max())
+        else:
+            min_val = min(min_val, benchmark.min())
+            max_val = max(max_val, benchmark.max())
+
     ax.set_ylim(bottom=min_val, top=max_val)
 
     if percent:
@@ -483,7 +497,7 @@ def plot_histogram(
     if benchmark is not None:
         if isinstance(returns, _pd.Series):
             combined_returns = (
-                benchmark.to_frame()
+                (benchmark.to_frame() if isinstance(benchmark, _pd.Series) else benchmark)
                 .join(returns.to_frame())
                 .stack()
                 .reset_index()
@@ -491,7 +505,7 @@ def plot_histogram(
             )
         elif isinstance(returns, _pd.DataFrame):
             combined_returns = (
-                benchmark.to_frame()
+                (benchmark.to_frame() if isinstance(benchmark, _pd.Series) else benchmark)
                 .join(returns)
                 .stack()
                 .reset_index()
