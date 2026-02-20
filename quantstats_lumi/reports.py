@@ -75,7 +75,7 @@ def _match_dates(returns, benchmark):
 
 def html(
     returns,
-    benchmark: _pd.Series = None,
+    benchmark: str | _pd.Series = None,
     rf: float = 0.0,
     grayscale: bool = False,
     title: str = "Strategy Tearsheet",
