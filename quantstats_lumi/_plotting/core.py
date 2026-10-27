@@ -172,12 +172,13 @@ def plot_returns_bars(
 
     # ax.fmt_xdata = _mdates.DateFormatter('%Y-%m-%d')
     # years = sorted(list(set(df.index.year)))
-    if len(years) > 10:
-        mod = int(len(years) / 10)
-        _plt.xticks(
-            _np.arange(len(years)),
-            [str(year) if not i % mod else "" for i, year in enumerate(years)],
-        )
+    # JFRD 2026-Oct-27 1.18 PM
+    # if len(years) > 10:
+    #     mod = int(len(years) / 10)
+    #     _plt.xticks(
+    #         _np.arange(len(years)),
+    #         [str(year) if not i % mod else "" for i, year in enumerate(years)],
+    #     )
 
     # rotate and align the tick labels so they look better
     fig.autofmt_xdate()
